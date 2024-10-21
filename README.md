@@ -82,8 +82,30 @@ sed -i 's/\./@/g' *.fasta
 ```
 
 ## Identificação e remoção de locos possivelmente parálogos
+A identificação de locos possivelmente parálogos pode ser realizada de diversas maneiras. No presente repositório, adotaremos a análise a olho das árvores de gene, buscando por indícios de paralogia em cada um dos locos. Para isto, precisamos utilizar o *HybPiper* para recuperar sequências que o programa identificou como parálogas durante o *assembling*:
+```
+hybpiper paralog_retriever namelist.txt -t_dna arquivo_de_referência.fasta
+```
+Este comando irá gerar estatísticas sobre os parálogos detectados pelo programa na sua base de dados, além de uma pasta contendo todas as sequências identificadas como parálogas, nomeada como `paralogs_all`. As sequências desta pasta podem ser alinhadas (com o *MAFFT*) e usadas para gerarmos árvores de cada um dos locos (com o *IQTree*):
+```
+nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/pasta/aligned_$i"; done'  &
+iqtree -s aligned_nome_da_amostra_paralogs_all.fasta
+```
+As árvores geradas devem ser analisadas manualmente em busca de indícios de paralogia, como múltiplas cópias de uma amostra com posicionamento distante na mesma árvore. Para mais detalhes sobre a identificação a olho de parálogos, acesse: https://doi.org/10.1093/sysbio/syad076. Após a identificação dos locos possivelmente parálogos, você pode removê-los da sua base de dados, movendo-os para uma pasta distinta:
+
+Crie uma lista com os locos que você identificou como possivelmente parálogos (ex: paralogs_list.txt).
+```
+mkdir locos_paralogos
+while read line; do mv $line ./locos_paralogos; done < paralogs_list.txt
+```
 
 ## Alinhamento de sequências
+Para alinhar as sequências de um determinado loco obtidas para cada uma das amostras, utilizaremos o programa *MAFFT* (https://github.com/GSLBiotech/mafft). É recomendável que você crie novas pastas para armazenar os alinhamentos. No presente repositório, utilizaremos os parâmetros padrões fornecidos pelo programa:
+
+```
+nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/pasta/aligned_$i"; done'  &
+```
+Os alinhamentos gerados terão o prefixo `aligned_`.
 
 ## Polimento das sequências alinhadas
 
