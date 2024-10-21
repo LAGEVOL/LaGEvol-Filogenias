@@ -2,7 +2,7 @@
 Repositório sobre o processamento de dados genômicos e inferências filogenéticas. Os dados utilizados como modelo foram sequenciados utilizando o painel de captura Cactaceae591. 
 
 ## Trimagem inicial dos dados brutos
-Definindo as variáveis referentes às duas fitas do DNA sequenciado.
+Definindo as variáveis referentes às duas fitas do DNA sequenciado:
 
 ```
 R1=(*R1.fastq)
@@ -80,6 +80,12 @@ sed -i 's/\.main.*/.main/g' *.fasta
 sed -i 's/ .*//' *.fasta
 sed -i 's/\./@/g' *.fasta
 ```
+
+## Identificação e remoção de locos possivelmente parálogos
+
+## Alinhamento de sequências
+
+## Polimento das sequências alinhadas
 
 
 
