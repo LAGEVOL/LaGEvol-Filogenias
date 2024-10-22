@@ -91,7 +91,11 @@ Este comando irá gerar estatísticas sobre os parálogos detectados pelo progra
 nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/pasta/aligned_$i"; done'  &
 iqtree -s aligned_nome_da_amostra_paralogs_all.fasta
 ```
-As árvores geradas devem ser analisadas manualmente em busca de indícios de paralogia, como múltiplas cópias de uma amostra com posicionamento distante na mesma árvore. Para mais detalhes sobre a identificação a olho de parálogos, acesse: https://doi.org/10.1093/sysbio/syad076. Após a identificação dos locos possivelmente parálogos, você pode removê-los da sua base de dados, movendo-os para uma pasta distinta:
+As árvores geradas devem ser analisadas manualmente em busca de indícios de paralogia, como múltiplas cópias de uma amostra com posicionamento distante na mesma árvore. Para mais detalhes sobre a identificação a olho de parálogos, acesse: https://doi.org/10.1093/sysbio/syad076. 
+
+![image](https://github.com/user-attachments/assets/d74a76e8-4f6c-4b0c-92f7-2219696fd03a)
+
+Após a identificação dos locos possivelmente parálogos, você pode removê-los da sua base de dados, movendo-os para uma pasta distinta:
 
 Crie uma lista com os locos que você identificou como possivelmente parálogos (ex: paralogs_list.txt).
 ```
