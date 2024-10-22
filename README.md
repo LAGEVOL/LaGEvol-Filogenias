@@ -108,6 +108,56 @@ nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/
 Os alinhamentos gerados terão o prefixo `aligned_`.
 
 ## Polimento das sequências alinhadas
+Uma segunda trimagem dos dados é necessária para remover posições dos alinhamentos com uma alta proporção de *gaps* e para isso, utilizaremos o *trimal* (https://github.com/inab/trimal.git). A *flag* que determina o limite de *gaps* a ser tolerado é a `-gt`. Neste caso, `-gt 0.7` indica que serão removidas as "colunas" do alinhamento que possuem uma fração de *gaps* maior ou igual a 30%:
+
+```
+mkdir alinhamento_trimado
+for i in *.fasta; do trimal -in $i -out ./alinhamento_trimado/"$i"_trimmed.fasta -gt 0.7; done;
+```
+
+O AMAS (https://github.com/marekborowiec/AMAS.git) pode ser utilizado para gerar estatísticas dos seus dados trimados, na forma de uma planilha. Estas estatísticas podem ser úteis caso você deseje explorar o efeito dos dados faltantes (*gaps*) sobre a sua base de dados.
+
+```
+python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
+```
+
+## Inferência filogenética utilizando o método de máxima verossimilhança
+Inicialmente, o programa *IQtree* (https://github.com/iqtree/iqtree2.git) será utilizado para gerar uma árvore para cada loco:
+
+```
+nohup sh -c 'for i in *.fasta; do iqtree2 -nt 4 -s "$i" -st DNA -m MFP -B 10000; done 2>iqtree.err' &
+```
+
+No método de máxima verossimilhança, as árvores geradas para cada loco precisam ser concatenadas, formando uma supermatriz:
+```
+pxcat -s *fasta -p partitions.txt -o minha_supermatriz.fasta
+```
+A *flag* `-p` gera um arquivo de partições, que pode ser útil caso você precise "desconcatenar" a supermatriz posteriormente.
+
+Uma árvore de espécies pode ser gerada a partir da supermatriz:
+```
+iqtree -nt 4 -s minha_supermatriz.fasta -st DNA -m MFP -B 10000
+```
+
+É recomendável que uma última trimagem dos dados seja aplicada, utilizando o *spruceup* (https://github.com/marekborowiec/spruceup.git). Este programa remove regiões hipervariáveis (*outliers*) da nossa base de dados. Para utilizar o programa precisaremos da supermatriz, de uma árvore de espécies (opcional) e de um arquivo de texto com os parâmetros a serem adotados. Um modelo deste último arquivo está anexado ao presente repositório.
+
+```
+python -m spruceup configuration-spruceup.conf
+```
+
+Este comando irá gerar uma supermatriz trimada (`0.valor_do_cut_off_minha_supermatriz.fasta`) que pode ser utilizada diretamente para gerar uma nova árvore de espécies, pelo método de máxima verossimilhança. A supermatriz trimada também pode ser "desconcatenada" utilizando o arquivo de partições (`partitions.txt`) gerado anteriormente:
+```
+python3 AMAS.py split -f fasta -d dna -i supermatriz_trimada.fasta -l partitions.txt -u fasta -j
+```
+Esta etapa é importante para que você possa inferir árvores de espécie pelo método de coalescência. 
+O AMAS também pode ser utilizado para gerar estatísticas nesta etapa:
+```
+python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
+```
+
+## Inferência filogenética utilizando o método de coalescência
+
+
 
 
 
