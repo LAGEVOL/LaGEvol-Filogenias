@@ -143,7 +143,7 @@ Uma árvore de espécies pode ser gerada a partir da supermatriz:
 iqtree -nt 4 -s minha_supermatriz.fasta -st DNA -m MFP -B 10000
 ```
 
-É recomendável que uma última trimagem dos dados seja aplicada, utilizando o *spruceup* (https://github.com/marekborowiec/spruceup.git). Este programa remove regiões hipervariáveis (*outliers*) da nossa base de dados. Para utilizar o programa precisaremos da supermatriz, de uma árvore de espécies (opcional) e de um arquivo de texto com os parâmetros a serem adotados. Um modelo deste último arquivo está anexado ao presente repositório.
+É recomendável que uma última trimagem dos dados seja aplicada, utilizando o *spruceup* (https://github.com/marekborowiec/spruceup.git). Este programa remove regiões hipervariáveis (*outliers*) da nossa base de dados. Para utilizar o programa precisaremos da supermatriz, de uma árvore de espécies (opcional) e de um arquivo de texto com os parâmetros a serem adotados. Um modelo deste último arquivo está anexado ao repositório (`configuration_spruceup.conf`).
 
 ```
 python -m spruceup configuration-spruceup.conf
