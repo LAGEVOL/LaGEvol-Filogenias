@@ -1,5 +1,5 @@
 # Processamento de Dados Genômicos e Inferências Filogenéticas
-Repositório sobre o processamento de dados genômicos e inferências filogenéticas com dados gerados por sequenciamento de regiões-alvo com bibliotecas enriquecidas (*target-enrichment sequencing*). Todos os programas e comandos necessários devem ser executados no sistema operacional Linux (ou no Subsistema Windows para Linux), através da interface *Bash*.
+Repositório sobre o processamento de dados genômicos e inferências filogenéticas com dados gerados por sequenciamento de regiões-alvo com bibliotecas enriquecidas (*target-enrichment sequencing*). Todos os programas e comandos necessários devem ser executados no sistema operacional Linux (ou no Subsistema Linux para Windows), através da interface *Bash*.
 
 Os comandos apresentados neste repositório foram baseados no workshop "Análises Filogenéticas Computacionais", ministrado por M. Kohler, M. Telhe e M. Romeiro-Brito, no Laboratório de Diversidade Genética e Evolução, UFSCar campus Sorocaba. 
 
