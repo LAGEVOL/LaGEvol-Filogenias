@@ -1,5 +1,7 @@
 # Processamento de Dados Genômicos e Inferências Filogenéticas
-Repositório sobre o processamento de dados genômicos e inferências filogenéticas. Os dados utilizados como modelo foram sequenciados utilizando o painel de captura Cactaceae591. 
+Repositório sobre o processamento de dados genômicos e inferências filogenéticas. 
+
+Os comandos apresentados neste repositório foram baseados no workshop "Análises Filogenéticas Computacionais", ministrado por M. Kohler, M. Telhe e M. Romeiro-Brito, no Laboratório de Diversidade Genética e Evolução, UFSCar campus Sorocaba. 
 
 ## Trimagem inicial dos dados brutos
 Definindo as variáveis referentes às duas fitas do DNA sequenciado:
