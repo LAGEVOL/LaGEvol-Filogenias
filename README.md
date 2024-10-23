@@ -17,9 +17,11 @@ Os comandos apresentados neste repositório foram baseados no workshop "Análise
 
 6. [Inferência filogenética utilizando o método de máxima verossimilhança](#Inferência-filogenética-utilizando-o-método-de-máxima-verossimilhança)
 
+   6.1 [Remoção de regiões hipervariáveis](#Remoção-de-regiões-hipervariáveis)
+
 7. [Inferência filogenética utilizando o método de coalescência](#Inferência-filogenética-utilizando-o-método-de-coalescência)
 
-## Trimagem inicial dos dados brutos
+## 1. Trimagem inicial dos dados brutos
 Definindo as variáveis referentes às duas fitas do DNA sequenciado:
 
 ```
@@ -43,7 +45,7 @@ for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "${R1[i]
 
 Os arquivos com os dados trimados terão o sufixo `_trimmed.fastq`. Para melhor organização, é recomendável que estes arquivos sejam movidos para uma nova pasta. 
 
-## Montagem dos dados trimados em locos
+## 2. Montagem dos dados trimados em locos
 Para montar os dados trimados em seus respectivos locos (processo chamado de *assembling*), utilizaremos o programa *HybPiper* (https://github.com/mossmatters/HybPiper.git). Precisaremos de um arquivo de referência para a montagem dos locos, indicado nos comandos pela *flag* `-t_dna`. 
 
 Utilizando o *HybPiper* em uma única amostra:
@@ -99,7 +101,7 @@ sed -i 's/ .*//' *.fasta
 sed -i 's/\./@/g' *.fasta
 ```
 
-## Identificação e remoção de locos possivelmente parálogos
+## 3. Identificação e remoção de locos possivelmente parálogos
 A identificação de locos possivelmente parálogos pode ser realizada de diversas maneiras. No presente repositório, adotaremos a análise a olho das árvores de gene, buscando por indícios de paralogia em cada um dos locos. Para isto, precisamos utilizar o *HybPiper* para recuperar sequências que o programa identificou como parálogas durante o *assembling*:
 ```
 hybpiper paralog_retriever namelist.txt -t_dna arquivo_de_referência.fasta
@@ -121,7 +123,7 @@ mkdir locos_paralogos
 while read line; do mv $line ./locos_paralogos; done < paralogs_list.txt
 ```
 
-## Alinhamento de sequências
+## 4. Alinhamento de sequências
 Para alinhar as sequências de um determinado loco obtidas para cada uma das amostras, utilizaremos o programa *MAFFT* (https://github.com/GSLBiotech/mafft). É recomendável que você crie novas pastas para armazenar os alinhamentos. No presente repositório, utilizaremos os parâmetros padrões fornecidos pelo programa:
 
 ```
@@ -129,7 +131,7 @@ nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/
 ```
 Os alinhamentos gerados terão o prefixo `aligned_`.
 
-## Polimento das sequências alinhadas
+## 5. Polimento das sequências alinhadas
 Uma segunda trimagem dos dados é necessária para remover posições dos alinhamentos com uma alta proporção de *gaps* e para isso, utilizaremos o *trimal* (https://github.com/inab/trimal.git). A *flag* que determina o limite de *gaps* a ser tolerado é a `-gt`. Neste caso, `-gt 0.7` indica que serão removidas as "colunas" do alinhamento que possuem uma fração de *gaps* maior ou igual a 30%:
 
 ```
@@ -143,7 +145,7 @@ O AMAS (https://github.com/marekborowiec/AMAS.git) pode ser utilizado para gerar
 python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
 ```
 
-## Inferência filogenética utilizando o método de máxima verossimilhança
+## 6. Inferência filogenética utilizando o método de máxima verossimilhança
 Inicialmente, o programa *IQtree* (https://github.com/iqtree/iqtree2.git) será utilizado para gerar uma árvore para cada loco:
 
 ```
@@ -160,7 +162,7 @@ Uma árvore de espécies pode ser gerada a partir da supermatriz:
 ```
 iqtree -nt 4 -s minha_supermatriz.fasta -st DNA -m MFP -B 10000
 ```
-
+### 6.1 Remoção de regiões hipervariáveis
 É recomendável que uma última trimagem dos dados seja aplicada, utilizando o *spruceup* (https://github.com/marekborowiec/spruceup.git). Este programa remove regiões hipervariáveis (*outliers*) da nossa base de dados. Para utilizar o programa precisaremos da supermatriz, de uma árvore de espécies (opcional) e de um arquivo de texto com os parâmetros a serem adotados. Um modelo deste último arquivo está anexado ao repositório (`configuration_spruceup.conf`).
 
 ```
@@ -177,7 +179,21 @@ O AMAS também pode ser utilizado para gerar estatísticas nesta etapa:
 python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
 ```
 
-## Inferência filogenética utilizando o método de coalescência
+## 7. Inferência filogenética utilizando o método de coalescência
+Para gerar uma árvore de espécies coalescente, precisamos reunir todas as árvores de gene em um único arquivo (all_gene.trees):
+```
+cat *.treefile > all_gene.trees
+```
+É recomendável que este arquivo contendo todas as árvores reunidas seja polido, para reduzir a influência de nós pouco informativos na nossa árvore de espécies. Para isso, usaremos um comando que colapsa nós que não atingem um valor de suporte mínimo:
+```
+nw_ed all_gene.trees 'i & b<=50' o >  all_gene_BS50.tree
+```
+Neste comando foi estabelecido um suporte mínimo de 50 para os nós, mas o limite ideal pode variar de acordo com os nossos dados. Para mais informações, acesse: https://doi.org/10.1016/j.ympev.2021.107092.
+
+Com as nossas árvores de gene unidas e polidas, utilizzaremos o ASTRAL III (https://github.com/smirarab/ASTRAL.git) para gerar nossa árvore de espécies coalescente:
+```
+java astral.5.7.8.jar -i all_gene_BS50.tree -o sptree_astral_BS50.tree 2> sptree_astral.log
+```
 
 
 
