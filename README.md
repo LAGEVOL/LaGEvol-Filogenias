@@ -190,7 +190,7 @@ nw_ed all_gene.trees 'i & b<=50' o >  all_gene_BS50.tree
 ```
 Neste comando foi estabelecido um suporte mínimo de 50 para os nós, mas o limite ideal pode variar de acordo com os nossos dados. Para mais informações, acesse: https://doi.org/10.1016/j.ympev.2021.107092.
 
-Com as nossas árvores de gene unidas e polidas, utilizzaremos o ASTRAL III (https://github.com/smirarab/ASTRAL.git) para gerar nossa árvore de espécies coalescente:
+Com as nossas árvores de gene unidas e polidas, utilizzaremos o *ASTRAL III* (https://github.com/smirarab/ASTRAL.git) para gerar nossa árvore de espécies coalescente:
 ```
 java astral.5.7.8.jar -i all_gene_BS50.tree -o sptree_astral_BS50.tree 2> sptree_astral.log
 ```
