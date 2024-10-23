@@ -3,6 +3,20 @@ Repositório sobre o processamento de dados genômicos e inferências filogenét
 
 Os comandos apresentados neste repositório foram baseados no workshop "Análises Filogenéticas Computacionais", ministrado por M. Kohler, M. Telhe e M. Romeiro-Brito, no Laboratório de Diversidade Genética e Evolução, UFSCar campus Sorocaba. 
 
+1. [Trimagem inicial dos dados brutos](#Trimagem-inicial-dos-dados-brutos)
+
+2. [Montagem dos dados trimados em locos](#Montagem-dos-dados-trimados-em-locos)
+
+3. [Identificação e remoção de locos possivelmente parálogos](#Identificação-e-remoção-de-locos-possivelmente-parálogos)
+
+4. [Alinhamento de sequências](#Alinhamento-de-sequências)
+
+5. [Polimento das sequências alinhadas](#Polimento-das-sequências-alinhadas)
+
+6. [Inferência filogenética utilizando o método de máxima verossimilhança](#Inferência-filogenética-utilizando-o-método-de-máxima-verossimilhança)
+
+7. [Inferência filogenética utilizando o método de coalescência](#Inferência-filogenética-utilizando-o-método-de-coalescência)
+
 ## Trimagem inicial dos dados brutos
 Definindo as variáveis referentes às duas fitas do DNA sequenciado:
 
