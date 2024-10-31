@@ -5,7 +5,7 @@ Base do repositório: Os comandos apresentados foram baseados no workshop "Anál
 
 ## Índice
 
-1. [Filtragem inicial dos dados brutos](Filtragem-inicial-dos-dados-brutos)
+1. [Filtragem inicial dos dados brutos](filtragem-inicial-dos-dados-brutos)
 
 2. [Montagem dos locos](#Montagem-dos-locos)
 
