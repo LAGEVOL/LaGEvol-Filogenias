@@ -5,7 +5,7 @@ Base do repositório: Os comandos apresentados foram baseados no workshop "Anál
 
 ## Índice
 
-1. [Filtragem inicial dos dados brutos](1.Filtragem-inicial-dos-dados-brutos)
+1. [Filtragem inicial dos dados brutos](1-Filtragem-inicial-dos-dados-brutos)
 
 2. [Montagem dos locos](#Montagem-dos-locos)
 
@@ -21,7 +21,7 @@ Base do repositório: Os comandos apresentados foram baseados no workshop "Anál
 
 7. [Inferência filogenética com o método de coalescência](#Inferência-filogenética-com-o-método-de-coalescência)
 
-## 1. Filtragem inicial dos dados brutos
+##1. Filtragem inicial dos dados brutos
 **Objetivo**: Remover sequências de baixa qualidade e adaptadores para garantir uma análise mais precisa dos dados.
 
 Definindo as variáveis referentes às duas fitas do DNA sequenciado:
