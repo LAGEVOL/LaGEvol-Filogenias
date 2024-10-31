@@ -197,12 +197,21 @@ cat *.treefile > all_gene.trees
 ```
 nw_ed all_gene.trees 'i & b<=50' o >  all_gene_BS50.tree
 ```
-No comando acima, o valor de suporte mínimo foi definido como 50, mas esse limite pode ser ajustado conforme as características dos dados. Para mais informações sobre esse ajuste, consulte Simmons & Gatesy, 2021: https://doi.org/10.1016/j.ympev.2021.107092.
+No comando acima, o valor de suporte mínimo foi definido como 50, mas esse limite pode ser ajustado conforme as características dos dados. Para mais informações sobre esse ajuste, consulte Simmons & Gatesy (2021): https://doi.org/10.1016/j.ympev.2021.107092.
 
 Com as árvores de genes compiladas e polidas, utilizaremos o *ASTRAL III* (https://github.com/smirarab/ASTRAL.git) para inferir a árvore de espécies coalescente:
 ```
 java astral.5.7.8.jar -i all_gene_BS50.tree -o sptree_astral_BS50.tree 2> sptree_astral.log
 ```
+
+## Referências 
+
+1. FROST, L. A.; BEDOYA, A. M.; LAGOMARSINO, L. P. Artifactual Orthologs and the Need for Diligent Data Exploration in Complex Phylogenomic Datasets: A Museomic Case Study from the Andean Flora. Systematic biology, 3 jan. 2024. DOI: https://doi.org/10.1093/sysbio/syad076
+
+2. ROMEIRO-BRITO, M.; et al. A target Capture Probe Set Useful for Deep - and Shallow - Level Phylogenetic Studies in Cactaceae. Genes, v. 13, n. 707, 2022. DOI: https://doi.org/10.3390/genes13040707.
+
+3. SIMMONS, M. P.; GATESY, J. Collapsing dubiously resolved gene-tree branches in phylogenomic coalescent analyses. Molecular Phylogenetics and Evolution, v. 158, p. 107092, mai. 2021. DOI: https://doi.org/10.1016/j.ympev.2021.107092. 
+
 
 
 
