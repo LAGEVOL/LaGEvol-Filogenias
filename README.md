@@ -170,7 +170,7 @@ Uma vez construída a supermatriz, geramos a árvore de espécies:
 ```
 iqtree -nt 4 -s minha_supermatriz.fasta -st DNA -m MFP -B 10000
 ```
-### 6.1 Remoção de regiões hipervariáveis
+### Remoção de regiões hipervariáveis
 Para refinar a supermatriz, é recomendável uma última trimagem com o *spruceup* (https://github.com/marekborowiec/spruceup.git), que remove regiões hipervariáveis (*outliers*). Para executar o programa, é necessário ter a supermatriz, uma árvore de espécies (opcional) e um arquivo de configuração com os parâmetros. Um modelo deste arquivo está anexado ao repositório (`configuration_spruceup.conf`).
 
 ```
