@@ -21,7 +21,7 @@ Base do repositório: Os comandos apresentados foram baseados no workshop "Anál
 
 7. [Inferência filogenética com o método de coalescência](#Inferência-filogenética-com-o-método-de-coalescência)
 
-## 1. Filtragem inicial dos dados brutos
+## Filtragem inicial dos dados brutos
 **Objetivo**: Remover sequências de baixa qualidade e adaptadores para garantir uma análise mais precisa dos dados.
 
 Definindo as variáveis referentes às duas fitas do DNA sequenciado:
@@ -47,7 +47,7 @@ for ((i=0;i<=${#R1[@]};i++)); do fastp  -i "${R1[i]}" -I "${R2[i]}"  -o "${R1[i]
 
 Após a execução, os arquivos com os dados filtrados terão o sufixo `_trimmed.fastq`. Para melhor organização, é recomendável movê-los para uma nova pasta. 
 
-## 2. Montagem dos locos
+## Montagem dos locos
 **Objetivo**: Mapear as leituras em locos alvo (assembling), utilizando o *Hybpiper* (https://github.com/mossmatters/HybPiper.git).
 
 Para realizar a montagem dos dados em locos usaremos um arquivo com sequências de referência para cada loco, indicado pela *flag* `-t_dna`.
@@ -107,7 +107,7 @@ sed -i 's/ .*//' *.fasta
 sed -i 's/\./@/g' *.fasta
 ```
 
-## 3. Identificação e remoção de locos possivelmente parálogos
+## Identificação e remoção de locos possivelmente parálogos
 
 A detecção de loci parálogos será feita com o *HybPiper* e seguindo os procedimentos de inspeção visual descrito em Frost et al. (2024):
 
@@ -131,7 +131,7 @@ mkdir locos_paralogos
 while read line; do mv $line ./locos_paralogos; done < paralogs_list.txt
 ```
 
-## 4. Alinhamento de sequências
+## Alinhamento de sequências
 Para alinhar as sequências de cada loco para todas as amostras, utilizaremos o programa *MAFFT* (https://github.com/GSLBiotech/mafft). É recomendável criar pastas específicas para organizar os alinhamentos. Os arquivos com os alinhamentos terão o prefixo `aligned_`. Nesse repositório, usaremos os parâmetros padrões do programa:
 
 ```
@@ -139,7 +139,7 @@ nohup sh -c 'for i in *.fasta; do mafft --reorder --auto "$i" > "caminho/para/a/
 ```
 Os alinhamentos gerados terão o prefixo `aligned_`.
 
-## 5. Polimento das sequências alinhadas
+## Polimento das sequências alinhadas
 Após o alinhamento, uma segunda etapa de trimagem é necessária para remover posições com alta proporção de *gaps*. Para isso, usaremos o *trimal* (https://github.com/inab/trimal.git). A *flag* `-gt` define o limite de tolerância para *gaps*; por exemplo, `-gt 0.7` remove as "colunas" (sítios) do alinhamento onde a fração de *gaps* é maior ou igual a 30%:
 
 ```
@@ -153,7 +153,7 @@ Para obter estatísticas dos alinhamentos, utilize o *AMAS* (https://github.com/
 python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
 ```
 
-## 6. Inferência filogenética com máxima verossimilhança
+## Inferência filogenética com máxima verossimilhança
 Utilizaremos o programa *IQtree* (https://github.com/iqtree/iqtree2.git) para gerar uma árvore de máxima verossimilhança para cada loco:
 
 ```
@@ -187,7 +187,7 @@ Para gerar estatísticas da supermatriz trimada, utilize o AMAS:
 python3 AMAS.py summary -f fasta -d dna -i *.fasta -o SummaryStats.csv
 ```
 
-## 7. Inferência filogenética com o método de coalescência
+## Inferência filogenética com o método de coalescência
 Para construir uma árvore de espécies utilizando o método de coalescência, primeiro é preciso reunir todas as árvores de genes em um único arquivo (all_gene.trees):
 ```
 cat *.treefile > all_gene.trees
