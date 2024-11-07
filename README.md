@@ -1,7 +1,7 @@
 # Processamento de Dados Genômicos e Inferências Filogenéticas
-Este documento descreve as etapas de processamento de dados genômicos obtidos via *target-enrichment sequencing* com o painel Cactaceae591 (Romeiro-Brito et al. 2022) e a construção de inferências filogenéticas, incluindo a trimagem de dados, montagem de locos, análise de qualidade e construção de árvores gene e espécies. Os programas e comandos necessários devem ser executados no sistema operacional Linux (ou no Subsistema Linux para Windows), através da interface *Bash*.
+O presente repositório descreve as etapas de processamento de dados genômicos obtidos via *target-enrichment sequencing* com o painel Cactaceae591 (Romeiro-Brito et al. 2022) e a construção de inferências filogenéticas, incluindo a trimagem de dados, montagem de locos, análise de qualidade e construção de árvores gene e espécies. Os programas e comandos necessários devem ser executados no sistema operacional Linux (ou no Subsistema Linux para Windows), através da interface *Bash*.
 
-Base do repositório: Os comandos apresentados foram baseados no workshop "Análises Filogenéticas Computacionais", ministrado por M. Kohler, M. Telhe e M. Romeiro-Brito, no Laboratório de Diversidade Genética e Evolução, UFSCar campus Sorocaba. 
+Base do repositório: Os processos aqui descritos foram adotados no projeto de iniciação científica "Filogenia multilocos de *Arrojadoa* Britton & Rose, cacto endêmico do leste do Brasil", desenvolvido sob orientação do professor Dr. Evandro M. Moraes no Laboratório de Diversidade Genética e Evolução (LaGEvol, UFSCar campus Sorocaba). Os comandos apresentados foram baseados no workshop "Análises Filogenéticas Computacionais", ministrado por M. Kohler, M. Telhe e M. Romeiro-Brito, na mesma instituição. 
 
 ## Índice
 
